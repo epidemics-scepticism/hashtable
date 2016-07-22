@@ -56,7 +56,7 @@ static HT_ENTRY *
 ht_retrieve_e(void *_h, const void *key, size_t key_sz)
 {
 	HT *h = (HT *)_h;
-	HT_ENTRY *e = NULL, *root = NULL;
+	HT_ENTRY *root = NULL;
 	uint64_t hkey = siphash(h->key, key, key_sz) % h->num_buckets;
 	for (root = h->bucket[hkey]; root; root = root->next) {
 		if (root->key_sz == key_sz) {
@@ -103,7 +103,6 @@ ht_destroy(void *_h)
 		goto fail;
 	}
 	for (size_t b = 0; b < h->num_buckets; b++) {
-		size_t c = 0;
 		HT_ENTRY *e = h->bucket[b], *t = NULL;
 		while (e) {
 			t = e->next;
