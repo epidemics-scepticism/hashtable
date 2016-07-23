@@ -70,11 +70,12 @@ ht_retrieve_e(void *_h, const void *key, size_t key_sz)
 void *
 ht_create(size_t buckets, const unsigned char *key)
 {
+	HT *h = NULL;
 	if (!key || !buckets) {
 		warnx("ht_create: invalid input");
 		goto fail;
 	}
-	HT *h = calloc(1, sizeof(HT));
+	h = calloc(1, sizeof(HT));
 	if (!h) {
 		warn("ht_create: calloc: %lu bytes", sizeof(HT));
 		goto fail;
